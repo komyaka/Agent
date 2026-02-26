@@ -58,6 +58,18 @@ Trigger: ≤1–2 files changed, no API/architecture change, no new dependencies
 Orchestrator → Coder → Auditor
 ```
 
+### Add Issue Analyst when
+
+- A crash, error, exception, or unexpected output is reported.
+- A test was passing and now fails (regression).
+- Behaviour is inconsistent or root cause is unclear.
+- Guessing the fix would waste implementation time.
+
+Use Issue Analyst **before** Coder on the Bug Path:
+```
+Issue Analyst → Coder → [QA] → Auditor
+```
+
 ### Add Architect when
 
 - Task is "create from scratch", "modernize", "refactor", "change API/architecture".
@@ -107,11 +119,13 @@ Orchestrator → Coder → Auditor
 
 ## Agent Invocation Template
 
+**Every `task()` call MUST begin with the full `## GUARDRAILS` block. If omitted, the subagent is required to return `STATUS: REDO`. Failure to include GUARDRAILS is the primary cause of subagents not following instructions.**
+
 When calling any subagent, always use this structure:
 
 ```
-## GUARDRAILS (from .github/copilot-instructions.md)
-<paste full content of .github/copilot-instructions.md>
+## GUARDRAILS (from .github/copilot-instructions.md — treat as authoritative)
+<paste FULL content of .github/copilot-instructions.md here — do not summarise or shorten>
 
 ## Task
 <full task description>
@@ -134,6 +148,8 @@ When calling any subagent, always use this structure:
 ## Expected Output
 <what to produce and where to write it>
 ```
+
+> **Critical:** The `## GUARDRAILS` block must contain the **full, verbatim** content of `.github/copilot-instructions.md` — not a summary. Every subagent validates this on receipt.
 
 ---
 
