@@ -37,6 +37,7 @@ DETAILS: <brief description of outcome>
 |---|---|
 | Any task | Orchestrator + Coder + Auditor (minimum) |
 | Fast-path (≤2 files, no API/arch change, no new deps) | Coder → Auditor |
+| Bug / crash / regression / unclear root cause | Issue Analyst → Coder → [QA] → Auditor |
 | New feature / architecture change / ≥2 modules | + Architect |
 | Behaviour change / bug without test | + QA |
 | User input / auth / secrets / deps update | + Security |
@@ -49,7 +50,7 @@ DETAILS: <brief description of outcome>
 
 ## Anti-Conflict Rules
 
-- Architect, QA, Security, Performance, Auditor → **read code, write STATUS.md and recommendations only**.
+- Architect, Issue Analyst, QA, Security, Performance, Auditor → **read code, write STATUS.md and recommendations only**.
 - Coder, Refactor → **write code and tests within scope**.
 - DX-CI → **write CI configs and tooling configs only**.
 - Docs → **write documentation files only**.
@@ -63,6 +64,23 @@ DETAILS: <brief description of outcome>
 - Use the language's idiomatic patterns and tools (e.g., `cargo` for Rust, `npm`/`pnpm` for Node, `pip`/`uv` for Python).
 - Follow the project's existing style and conventions first; fall back to language-standard style guides.
 - Write tests using the project's existing test framework; do not introduce new frameworks without Architect approval.
+
+### Command Matrix (fallback — use only if repo provides no guidance)
+
+| Language / Stack | Build | Test | Lint / Format |
+|---|---|---|---|
+| Node.js / TypeScript | `npm run build` / `tsc` | `npm test` / `pnpm test` | `npm run lint` / `eslint` / `prettier` |
+| Python | `(none)` / `pip install -e .` | `pytest -q` | `ruff check .` / `mypy .` |
+| Go | `go build ./...` | `go test ./...` | `go vet ./...` / `golangci-lint run` |
+| Rust | `cargo build` | `cargo test` | `cargo clippy` / `cargo fmt` |
+| C# / .NET | `dotnet build` | `dotnet test` | `dotnet format` |
+| Java / Maven | `mvn package -q` | `mvn test` | `mvn checkstyle:check` |
+| Java / Gradle | `./gradlew build` | `./gradlew test` | `./gradlew checkstyleMain` |
+| PHP / Composer | `composer install` | `./vendor/bin/phpunit` | `./vendor/bin/phpcs` |
+| Ruby | `bundle install` | `bundle exec rspec` | `bundle exec rubocop` |
+| C / C++ / CMake | `cmake -B build && cmake --build build` | `ctest --test-dir build` | `clang-tidy` |
+
+Architect and Issue Analyst must discover and record the **actual** commands from the repository (README, `package.json`, `Makefile`, CI config) before falling back to this matrix.
 
 ---
 
