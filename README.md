@@ -1,3 +1,9 @@
+## Русская версия
+
+Этот README переведён на русский язык. Если есть расхождения, приоритет у логики в `.github/copilot-instructions.md` и профилях агентов.
+
+---
+
 # Agent — 10-Agent AI Coding System
 
 A production-ready multi-agent system for GitHub Copilot that writes, fixes, refactors, and reviews code across all programming languages and project types (web, desktop, embedded, industrial software).
@@ -14,7 +20,7 @@ Copy the template from [`prompt.md`](./prompt.md), fill in your task, and hand i
 
 All agents live in [`.github/agents/`](./.github/agents/). The single source of rules is [`.github/copilot-instructions.md`](./.github/copilot-instructions.md). The single source of task truth is [`STATUS.md`](./STATUS.md).
 
-### The 10 Agents
+### The 10 Агенты
 
 | # | Agent | Role | Write-Zone |
 |---|---|---|---|
@@ -41,20 +47,24 @@ All agents live in [`.github/agents/`](./.github/agents/). The single source of 
 Orchestrator → Coder → Auditor
 ```
 
+
 ### Bug-path (crash / regression / unclear root cause)
 ```
 Orchestrator → Issue Analyst → Coder → [QA] → Auditor
 ```
+
 
 ### Feature-path (new functionality)
 ```
 Orchestrator → Architect → Coder → QA → [Docs] → Auditor
 ```
 
+
 ### Modernization-path (refactor / cleanup)
 ```
 Orchestrator → Architect → Refactor → QA → Auditor
 ```
+
 
 Add `Security`, `Performance`, or `DX-CI` to any path when their triggers apply.
 
@@ -70,9 +80,9 @@ Every `task()` call from Orchestrator **must** include the full `## GUARDRAILS` 
 
 `STATUS.md` is the canonical coordination artifact. Every agent writes only to its designated sections.
 
-### No Parallel Agents
+### No Parallel Агенты
 
-Agents execute sequentially. No two agents modify the same file category at the same time.
+Агенты execute sequentially. No two agents modify the same file category at the same time.
 
 ---
 
@@ -90,6 +100,6 @@ See the [Command Matrix](./.github/copilot-instructions.md) for fallback build/t
 |---|---|
 | `.github/copilot-instructions.md` | GUARDRAILS — universal rules for all agents |
 | `.github/agents/*.agent.md` | Agent profiles (role, write-zone, checklist) |
-| `STATUS.md` | Task state — single source of truth |
+| `STATUS.md` | Task state — единственный источник истины |
 | `prompt.md` | Universal task prompt template |
-| `chatgpt_agent/` | Reference agent profiles for ChatGPT / non-Copilot environments |
+| `chatgpt_agent/` | Reference профили агентов for ChatGPT / non-Copilot environments |
