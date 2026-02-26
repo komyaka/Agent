@@ -1,6 +1,6 @@
 # GUARDRAILS — Universal Copilot Instructions
 
-These rules apply to **every agent** in this repository without exception. Orchestrator must include this section verbatim when calling `runSubagent()` / `task()`.
+These rules apply to **every agent** in this repository without exception. Orchestrator must include this section verbatim when calling `runSubagent()`.
 
 ---
 
@@ -44,7 +44,7 @@ DETAILS: <brief description of outcome>
 | Hot paths / large data / latency requirements | + Performance |
 | CI failure / build system / lint / dep changes | + DX-CI |
 | Public interface / CLI / env config change | + Docs |
-| Explicit refactor / cleanup / tech-debt task | + Refactor |
+| Explicit refactor-maintainer / cleanup / tech-debt task | + Refactor |
 
 ---
 
